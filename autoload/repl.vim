@@ -554,7 +554,8 @@ function! repl#SendCurrentLine()
             endif
         endif
         if repl#REPLGetShortName() ==# "ipython"
-            call repl#Sends(repl#ToREPLPythonCode([l:code_tobe_sent], 'ipython'), ['\.\.\.', 'In'])
+            let l:code_line = substitute(l:code_tobe_sent, '\r\?\n$', '', '')
+            call repl#Sends([l:code_line], ['\.\.\.', 'In'])
         else
             call term_sendkeys(repl#GetConsoleName(), l:code_tobe_sent)
         endif

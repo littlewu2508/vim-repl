@@ -222,13 +222,12 @@ class pythoncodes:
         if not self.isstartofline(index):
             return False
         line = self.rawcontents[index].strip()
-        if line.startswith("else:"):
+        compact = "".join(line.split())
+        if line.startswith("else") and compact.startswith("else:"):
             return False
-        elif line.startswith("except "):
+        elif line.startswith("except ") or (line.startswith("except") and compact.startswith("except:")):
             return False
-        elif line.startswith("except:"):
-            return False
-        elif line.startswith("elif "):
+        elif line.startswith("elif ") or (line.startswith("elif") and compact.startswith("elif:")):
             return False
         else:
             return True
