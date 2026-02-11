@@ -142,6 +142,12 @@ function! repl#REPLGetShortName()
         return 'ipython'
     elseif l:temp ==# 'ipython3'
         return 'ipython'
+    elseif stridx(l:name, '--kernel=') != -1
+		if stridx(l:name, '--kernel=python') != -1
+			return 'ipython'
+		else
+			return 'R'
+		endif
     elseif l:temp =~# '.*python.*'
         return 'python'
     else
